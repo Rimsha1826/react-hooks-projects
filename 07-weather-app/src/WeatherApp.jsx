@@ -1,12 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function WeatherApp() {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const inputRef = useRef(null);
 
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   async function fetchWeather() {
     if (!city) return;
@@ -41,9 +46,9 @@ function WeatherApp() {
       <div className="bg-white/20 backdrop-blur-md rounded-3xl p-8 w-full max-w-md text-white">
         <h1 className="text-3xl font-bold text-center mb-8">🌤️ Weather App</h1>
 
-        {/* Search */}
         <div className="flex gap-2 mb-6">
           <input
+            ref={inputRef}
             type="text"
             placeholder="Enter city name..."
             value={city}
@@ -59,19 +64,16 @@ function WeatherApp() {
           </button>
         </div>
 
-        {/* Loading */}
         {loading && (
           <p className="text-center text-white/80">Fetching weather...</p>
         )}
 
-        {/* Error */}
         {error && (
           <p className="text-center text-red-200 bg-red-500/30 rounded-xl px-4 py-3">
             {error}
           </p>
         )}
 
-        {/* Weather Data */}
         {weather && (
           <div className="text-center">
             <h2 className="text-4xl font-bold mb-1">
