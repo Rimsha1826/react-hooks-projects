@@ -10,7 +10,9 @@ function WeatherApp() {
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
   useEffect(() => {
-    inputRef.current.focus();
+    if (window.innerWidth > 768) {
+      inputRef.current.focus();
+    }
   }, []);
 
   async function fetchWeather() {
@@ -42,11 +44,11 @@ function WeatherApp() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-400 to-purple-500 flex flex-col items-center justify-start md:justify-center px-4 py-16">
+    <div className="min-h-screen bg-gradient-to-br from-blue-400 to-purple-500 flex flex-col items-center justify-start md:justify-center px-4 py-16 overflow-x-hidden">
       <div className="bg-white/20 backdrop-blur-md rounded-3xl p-6 w-full max-w-md text-white">
         <h1 className="text-3xl font-bold text-center mb-8">🌤️ Weather App</h1>
 
-        <div className="flex gap-2 mb-6">
+        <div className="flex flex-col sm:flex-row gap-2 mb-6">
           <input
             ref={inputRef}
             type="text"
@@ -54,11 +56,11 @@ function WeatherApp() {
             value={city}
             onChange={(e) => setCity(e.target.value)}
             onKeyDown={handleKeyPress}
-            className="flex-1 px-4 py-3 rounded-xl bg-white/30 placeholder-white/70 text-white outline-none focus:bg-white/40"
+            className="w-full px-4 py-3 rounded-xl bg-white/30 placeholder-white/70 text-white outline-none focus:bg-white/40"
           />
           <button
             onClick={fetchWeather}
-            className="bg-white text-purple-600 px-6 py-3 rounded-xl font-semibold hover:bg-white/90 transition"
+            className="w-full sm:w-auto bg-white text-purple-600 px-6 py-3 rounded-xl font-semibold hover:bg-white/90 transition"
           >
             Search
           </button>
@@ -76,7 +78,7 @@ function WeatherApp() {
 
         {weather && (
           <div className="text-center">
-            <h2 className="text-4xl font-bold mb-1">
+            <h2 className="text-2xl font-bold mb-1">
               {weather.name}, {weather.sys.country}
             </h2>
             <img
@@ -84,27 +86,27 @@ function WeatherApp() {
               alt={weather.weather[0].description}
               className="mx-auto w-24 h-24"
             />
-            <p className="text-7xl font-bold mb-2">
+            <p className="text-6xl font-bold mb-2">
               {Math.round(weather.main.temp)}°C
             </p>
-            <p className="text-xl capitalize mb-6">
+            <p className="text-lg capitalize mb-6">
               {weather.weather[0].description}
             </p>
 
-            <div className="grid grid-cols-3 gap-4">
-              <div className="bg-white/20 rounded-2xl p-4">
-                <p className="text-sm opacity-70">Feels Like</p>
-                <p className="text-xl font-bold">
+            <div className="grid grid-cols-3 gap-3">
+              <div className="bg-white/20 rounded-2xl p-3">
+                <p className="text-xs opacity-70">Feels Like</p>
+                <p className="text-lg font-bold">
                   {Math.round(weather.main.feels_like)}°C
                 </p>
               </div>
-              <div className="bg-white/20 rounded-2xl p-4">
-                <p className="text-sm opacity-70">Humidity</p>
-                <p className="text-xl font-bold">{weather.main.humidity}%</p>
+              <div className="bg-white/20 rounded-2xl p-3">
+                <p className="text-xs opacity-70">Humidity</p>
+                <p className="text-lg font-bold">{weather.main.humidity}%</p>
               </div>
-              <div className="bg-white/20 rounded-2xl p-4">
-                <p className="text-sm opacity-70">Wind</p>
-                <p className="text-xl font-bold">{weather.wind.speed} m/s</p>
+              <div className="bg-white/20 rounded-2xl p-3">
+                <p className="text-xs opacity-70">Wind</p>
+                <p className="text-lg font-bold">{weather.wind.speed} m/s</p>
               </div>
             </div>
           </div>
