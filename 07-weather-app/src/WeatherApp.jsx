@@ -42,8 +42,8 @@ function WeatherApp() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center px-4">
-      <div className="bg-white/20 backdrop-blur-md rounded-3xl p-8 w-full max-w-md text-white">
+    <div className="min-h-screen bg-gradient-to-br from-blue-400 to-purple-500 flex flex-col items-center justify-start md:justify-center px-4 py-16">
+      <div className="bg-white/20 backdrop-blur-md rounded-3xl p-6 w-full max-w-md text-white">
         <h1 className="text-3xl font-bold text-center mb-8">🌤️ Weather App</h1>
 
         <div className="flex gap-2 mb-6">
